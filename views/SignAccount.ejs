@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<style>
+
+p {
+    color: white;
+    font-family: Helvetica;
+    font-size: 16px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    font-family: Helvetica;
+    font-size: 16px;
+    padding-top: 80px;
+    padding-bottom: 0px;
+
+}
+
+button {
+    background-color: black;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    padding-top: 15px;
+
+
+}
+.returntomain{
+    background-color: black;
+    vertical-align: middle;
+    text-align: center;
+    width: auto;
+    padding: auto;
+    margin-top: 10px;
+    font-size: 11px;
+}
+</style>
+
+<body style = "background-color: #f7df88">
+    <center><h1></h1>
+        <p1>
+            <center><button type="button" class="returntomain" onclick = "location.href = '/'"> Return to Main Page</center></button>
+        </p1>
+
+    <p title = Sign Up></p>
+    <h2>Sign Up</h2>
+<form action ='/signup' method ='post' >
+        <input type = "text" name = "name" id = "userName" placeholder="Your Email" ><br></br>
+        <input type = "password" id = "psw1" name = "name" placeholder="Your New Password" ><br></br>
+        <input type = "password" id = "psw2" name = "name" placeholder="Confirm New Password"><br></br>
+        <br></br>
+
+        <button type = "submit" id = "Sup" value = "Sign Up" name = "name" onclick = "redirect()">Sign Up</button> <br></br>
+      </form>
+        <script type="text/javascript">
+            function redirect() {
+                if (document.getElementById("userName").value == "") {
+                    alert("Please enter a name");
+                    location.href = '/SignAccount';
+                } else if (document.getElementById("psw1").value == "" || document.getElementById("psw2").value == "") {
+                    alert("Please enter a password");
+                    location.href = '/SignAccount';
+                } else if (document.getElementById("userName") != "" && (document.getElementById("psw1").value != document.getElementById("psw2").value)) {
+                    alert("Please check you passwords");
+                    location.href = '/SignAccount';
+                }
+            }
+    </script>
+</center>
+</body>
+</html>

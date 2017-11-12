@@ -1,0 +1,21 @@
+{
+  "name": "Coexer",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "luoluo",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "crypto": "^1.0.1",
+    "ejs": "^2.5.7",
+    "express": "^4.15.5",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.1.0",
+    "mysql": "^2.15.0",
+    "path": "^0.12.7"
+  }
+}

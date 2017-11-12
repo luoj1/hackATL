@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <script>
+  if(<%- JSON.stringify(x)%>=='overlap'){
+    confirm('slot is already there. Add in?');
+    if(confirm('slot is already there. Add in?')==true){
+      document.getElementById("create").submit();
+    }else{
+      document.getElementById("x").value = '';
+    }
+}else if(<%- JSON.stringify(x)%>!=''){
+  alert(<%- JSON.stringify(x)%>);
+}
+  </script>
+
+  <form id="create" action="/create" method='post'>
+    time:<br>
+    <input id="x" type ="hidden" name="x" value=<%- x%>>
+    <input id="x"type ="hidden" name="info" value=<%- info%>>
+    <input id="8"type="radio" name="time" value=8 checked>
+    <input id="10"type="radio" name="time" value=10>
+    <input id="12" type="radio" name="time" value=12>
+    <input id="14"type="radio" name="time" value=14>
+    <input id="16" type="radio" name="time" value=16>
+    <br>
+    date:<br>
+    <input type="date" name="date" value=<%- date%> />
+    <br>
+    location:<br>
+    <input id='Soccer'type="radio" name="location" value="Soccer" checked>
+    <input id ='Basketball'type="radio" name="location" value="Basketball">
+    <input  id = 'Baseball'type="radio" name="location" value="Baseball">
+    <input  id = 'Baseball'type="radio" name="location" value="Tennis">
+    <br><br>
+    description:(100char)<br>
+    <textarea type="text" name="description" value=<%- JSON.stringify(description)%>> </textarea>
+    <br><br>
+    <input type="radio" name="merge" value=1 checked>
+    <input type="radio" name="merge" value=0>
+    <input type="submit" value="Submit">
+  </form>
+<script>
+if(<%- JSON.stringify(location)%>!=''){
+document.getElementById(<%- JSON.stringify(location)%>).checked= true;
+document.getElementById(<%- JSON.stringify(time)%>).checked= true;
+}
+</script>
+<p>create</p>
+
+</body>
+</html>

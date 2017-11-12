@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<style>
+button {
+        background-color: black;
+        color: white;
+        padding: 14px 20px;
+        margin: 10px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        padding-top: 15px;
+    }
+    .returntomain{
+        background-color: black;
+        text-align: left;
+        width: auto;
+        padding: auto;
+        margin-top: 0px;
+        font-size: 11px;
+    }
+</style>
+<head>
+</head>
+<h1></h1>
+<br></br>
+<br></br>
+<br></br>
+<p1>
+        <center><button type="button" class="returntomain" onclick = "window.location.href = 'Main.html'"> Return to Main Page</center></button>
+    </p1>
+<body style = "background-color: #f7df88">
+    <br></br>
+    <center><select id = "SPORTS">
+        <option value = "Sports"> Sports</option>
+        <option value = "Soccer"> Soccer</option>
+        <option value = "Basketball"> Basketball</option>
+        <option value = "Gym"> Gym</option>
+        <option value = "Football"> Football</option>
+        <option value = "Baseball"> Baseball</option>
+        <option value = "Swimming"> Swimming</option>
+        <option value = "Tennis"> Tennis</option>
+        <option value = "Badminton"> Badminton</option>
+        <option value = "Table Tennis"> Table Tennis</option>
+    </select>
+    <select id = "TIME">
+        <option value = "time"> time</option>
+        <option value = "8:00-10:00"> 8:00-10:00</option>
+        <option value = "10:00-12:00"> 10:00-12:00</option>
+        <option value = "12:00-14:00"> 12:00-14:00</option>
+        <option value = "14:00-16:00"> 14:00-16:00</option>
+        <option value = "16:00-18:00"> 16:00-18:00</option>
+        <option value = "18:00-10:00"> 18:00-20:00</option>
+        <option value = "20:00-22:00"> 20:00-22:00</option>
+        <option value = "22:00-24:00"> 22:00-24:00</option>
+    </select>
+    <br></br>
+    <br></br>
+    <button type = "button" value = "Submit" name = "name" onclick = "redirect1()"> Submit</button>
+</center>
+<script type="text/javascript">
+            function redirect1() {
+                if (document.getElementById("SPORTS").value == "Sports") {
+                    alert("Please enter a time");
+                } else if (document.getElementById("TIME").value == "time") {
+                    alert("Please enter a sport");
+                } else {
+                    location.href = "Thanks.html"
+                }
+            }
+    </script>
+</body>
+</html>

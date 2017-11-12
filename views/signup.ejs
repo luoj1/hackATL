@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <script>
+  var xhttp, xmlDoc, txt, x, i;
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+
+
+    }
+  };
+  xhttp.open("get", "/signup", true);
+  xhttp.send();
+  </script>
+
+  <form action="/signup" method='post'>
+    email:<br>
+    <input type="text" name="username" value="">
+    <br>
+    password:<br>
+    <input type="text" name="password" value="">
+    <br><br>
+    password:<br>
+    <input type="text" name="password2" value="">
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
+<p>I am your daddy</p>
+
+</body>
+</html>

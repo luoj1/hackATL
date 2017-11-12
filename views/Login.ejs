@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    background-color: #f7df88;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    font-family: Helvetica;
+    font-size: 16px;
+    padding-top: 40px;
+    padding-bottom: 50px;
+
+}
+
+p {
+    color: white;
+    font-family: Helvetica;
+    font-size: 16px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+div{
+    color: white;
+    font-family: Helvetica;
+    font-size: 12px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50px;
+}
+
+button {
+    background-color: black;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    padding-top: 20px;
+
+
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+    opacity: 0.8;
+}
+.returntomain{
+    background-color: black;
+    text-align: left;
+    width: auto;
+    padding: auto;
+    margin-top: 0px;
+    font-size: 11px;
+}
+
+
+</style>
+</head>
+<body>
+
+<h1></h1>
+
+<center><p1>
+    <button type="button" class="returntomain" name = "Return to Main Page" onclick= "location.href = '/'">Return to Main Page</button>
+</p1>
+<h2>Login</h2>
+<form action='/login' method='post'>
+ <p><i class="login"></i>
+    <input class="" type="text" id = "userName" placeholder="Your Email" name="username" required>
+ <p><i class="login"></i>
+    <input class="" type="password" id = "Password" placeholder="Your Password" name="password"  required>
+ </p >
+
+<button type="submit" onclick = "redirect1()">Login</button>
+<button type="" onclick = "location.href = '/SignAccount'">Signup</button>
+</form>
+<script type = "text/javascript">
+    function redirect1() {
+        if (document.getElementById("userName").value == "") {
+            alert("Please enter your username");
+              location.href = "/login"
+        } else if (document.getElementById("Password").value == "") {
+            alert("Please enter your password");
+              location.href = "/login"
+        }
+    }
+
+    </script>
+
+
+</body>
+</html>

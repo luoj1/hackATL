@@ -1,0 +1,22 @@
+h1 {
+    text-align: center;
+    color: black;
+    margin-top: 10px;
+}
+h4 {
+    text-align: center;
+    color: black;
+    margin-top: 10px;
+}
+html {
+    background-color: #f7df88;
+}
+body {
+    background-color: #f7df88;
+}
+.btn-group {
+    vertical-align: middle;
+    text-align: center;
+    background-color: #f7df88;
+    position: relative;
+}
