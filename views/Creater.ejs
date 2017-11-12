@@ -27,11 +27,13 @@ button {
 <br></br>
 <br></br>
 <p1>
-        <center><button type="button" class="returntomain" onclick = "window.location.href = 'Main.html'"> Return to Main Page</center></button>
+        <center><button type="button" class="returntomain" onclick = "location.href = '/'"> Return to Main Page</center></button>
     </p1>
 <body style = "background-color: #f7df88">
     <br></br>
-    <center><select id = "SPORTS">
+    <center>
+      <form action='create' method='post'>
+      <select name ='location' id = "SPORTS">
         <option value = "Sports"> Sports</option>
         <option value = "Soccer"> Soccer</option>
         <option value = "Basketball"> Basketball</option>
@@ -41,22 +43,32 @@ button {
         <option value = "Swimming"> Swimming</option>
         <option value = "Tennis"> Tennis</option>
         <option value = "Badminton"> Badminton</option>
-        <option value = "Table Tennis"> Table Tennis</option>
     </select>
-    <select id = "TIME">
+    <select name='time' id = "TIME">
         <option value = "time"> time</option>
-        <option value = "8:00-10:00"> 8:00-10:00</option>
-        <option value = "10:00-12:00"> 10:00-12:00</option>
-        <option value = "12:00-14:00"> 12:00-14:00</option>
-        <option value = "14:00-16:00"> 14:00-16:00</option>
-        <option value = "16:00-18:00"> 16:00-18:00</option>
-        <option value = "18:00-10:00"> 18:00-20:00</option>
-        <option value = "20:00-22:00"> 20:00-22:00</option>
-        <option value = "22:00-24:00"> 22:00-24:00</option>
+        <option value = 8> 8:00-10:00</option>
+        <option value = 10> 10:00-12:00</option>
+        <option value = 12> 12:00-14:00</option>
+        <option value = 14> 14:00-16:00</option>
+        <option value = 16> 16:00-18:00</option>
+        <option value = 18> 18:00-20:00</option>
+        <option value = 20> 20:00-22:00</option>
+        <option value = 22> 22:00-24:00</option>
     </select>
+    <br>Description:<br>
+    <textarea type="text" name="description" height ='70' wid='50' value=<%- JSON.stringify(description)%>> </textarea>
+    <br>Date:<br>
+    <input type="date" name="date" value=<%- date%> />
+    <br>
+    <br>If your activity overlap with another person's activity at the same time...<br>
+    <span>Add me in!!</span><input type="radio" name="merge" value=1 checked><br>
+    <span>Prefer to do another time</span><input type="radio" name="merge" value=0><br>
+    <br>
     <br></br>
     <br></br>
-    <button type = "button" value = "Submit" name = "name" onclick = "redirect1()"> Submit</button>
+      <input id="x"type ="hidden" name="info" value=<%- info%>>
+    <button type = "submit" value = "Submit" name = "name" > Submit</button>
+    </form>
 </center>
 <script type="text/javascript">
             function redirect1() {
@@ -64,10 +76,12 @@ button {
                     alert("Please enter a time");
                 } else if (document.getElementById("TIME").value == "time") {
                     alert("Please enter a sport");
+
                 } else {
                     location.href = "Thanks.html"
                 }
             }
     </script>
+      <script style= "color: red">if(<%- JSON.stringify(x)%>!=''){while(alert(<%- JSON.stringify(x)%>)==false){}}</script>
 </body>
 </html>

@@ -96,7 +96,7 @@ con.query(query ,function (err, result) {
     }else{
       query = `select * FROM activity WHERE date= ${date} And time = ${time} And sport = '${location}'`;
       con.query(query ,function (err, result) {
-        if(result[0].seat<=result.length){
+        if(result.length!=0&&result[0].seat<=result.length){
           cb(false);
         }else{
           query = `insert into activity (date,time,seat,sport,description,people)values(${date},${time},${seat[location]},'${location}','${result[0].description}','${e}')`;
@@ -123,16 +123,16 @@ con.query(query ,function (err, result) {
     }else{
       query = `select * FROM activity WHERE date= ${date} And time = ${time} And sport = '${location}'`;
       con.query(query ,function (err, result) {
-        if(result[0].seat<=result.length){
-          cb(0);
-            console.log(result.length+'full'+result[0].seat);
-        }else if(result.length==0){
+        if(result.length==0){
           query = `insert into activity (date,time,seat,sport,description,people)values(${date},${time},${seat[location]},'${location}','${description}','${e}')`;
           con.query(query ,function (err, result) {
             if (err){ throw (err + '\n' +query)};
           cb(1);
         })
-        }else{
+        }else if(result[0].seat<=result.length){
+          cb(0);
+            console.log(result.length+'full'+result[0].seat);
+        } else{
           cb(2);
         }
       })

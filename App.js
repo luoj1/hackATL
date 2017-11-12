@@ -15,7 +15,10 @@ app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.set('views', path.join(__dirname, 'views'));
+app.get('/thanku',function(req,res){
+res.render('Thanks');
 
+})
 app.get('/', function (req, res) {
 	console.log("get/");
   login.connect(function(){
@@ -29,27 +32,32 @@ app.get('/login', function (req, res) {
     res.render('Login',{'x':''});
 });
 app.get('/SignAccount',function(req,res){
-  res.render('SignAccount');
+  res.render('SignAccount',{'x':''});
 })
 app.post('/join',function(req,res){
   console.log('post/create');
+	if(typeof req.body.stuff==='undefined'){
+		res.render('List',{info:req.body.info,x:'select a time slot!'});
+		return;
+	}
   readtoken(req.body.info,function(r){
   if(r!=false){
   var reee = r.eee;
   login.checkkey(r.eee,r.ppp,function(r){
     console.log('keychecked');
     if(r==true){
-      login.addtoslot(req.body.time,dateGenerator(req.body.date),req.body.location,reee,function(r){
+			req.body.stuff = JSON.parse(req.body.stuff);
+      login.addtoslot(req.body.stuff.time,req.body.stuff.date,req.body.stuff.sport,reee,function(r){
         if(r==1){
           res.redirect('/thanku');
         }else{
-          res.render('join',{info:req.body.info});
+          res.render('List',{info:req.body.info,x:'seat is not available. Sorry for your unluckiness'});
         }
       })
     }
     })
     }else{
-      res.render('loginTest',{'x':''});
+      res.render('Login',{'x':''});
     }
     })
     })
@@ -69,8 +77,9 @@ app.post('/create',function(req,res){
     if(r==true){
       console.log('rbd:'+req.body.date);
 //-------------------------------------------
-if(oldDate(req.body.date)||req.body.date==''||req.body.date==null){
-  res.render('create',{info:req.body.info,'x':'time problem',time:req.body.time,date:'',location:req.body.location,description:req.body.description});
+console.log('time'+req.body.time);
+if(oldDate(req.body.date)||req.body.date==''||req.body.time=='time'||req.body.location=='Sports'||req.body.description.length>200){
+  res.render('Creater',{info:req.body.info,'x':'Please enter a time',time:req.body.time,date:'',location:req.body.location,description:req.body.description});
   return;
 }
 
@@ -85,14 +94,14 @@ if(r==1){
     if(r==1){
       res.redirect('/thanku');
     }else{
-      res.render('create',{info:req.body.info,'x':'fully',time:req.body.time,date:req.body.date,location:req.body.location,description:req.body.description});
+      res.render('Creater',{info:req.body.info,'x':'full',time:req.body.time,date:req.body.date,location:req.body.location,description:req.body.description});
     }
   })
 }else{
-  res.render('create',{info:req.body.info,'x':'not merged',time:req.body.time,date:req.body.date,location:req.body.location,description:req.body.description});
+  res.render('Creater',{info:req.body.info,'x':'',time:req.body.time,date:req.body.date,location:req.body.location,description:req.body.description});
 }
 }else{
-  res.render('create',{info:req.body.info,'x':'full',time:req.body.time,date:req.body.date,location:req.body.location,description:req.body.description});
+  res.render('Creater',{info:req.body.info,'x':'full',time:req.body.time,date:req.body.date,location:req.body.location,description:req.body.description});
 }
 })
 
@@ -100,7 +109,7 @@ if(r==1){
 }
 })
 }else{
-  res.render('loginTest',{'x':''});
+  res.render('Login',{'x':''});
 }
 })
 })
@@ -115,13 +124,13 @@ app.post('/signup', function (req, res) {
   if(pw == pw2 &&validateEmail(user)){
     login.newuser(user,pw,function(r){
     if(r){
-    res.render('loginTest',{'x':''});
+    res.render('Login',{'x':''});
   }else{
-    res.render('signup',{'x':'already there'});
+    res.render('SignAccount',{'x':'already there'});
   }
     })
   }else{
-    res.render('signup',{'x':'check uname and pw'});
+    res.render('SignAccount',{'x':'check uname and pw'});
   }
 });
 app.post('/todo', function(req,res){
@@ -133,15 +142,15 @@ app.post('/todo', function(req,res){
     if(r==true){
 if(req.body.action=='join'){
 
-res.render('join',{info:req.body.info});
+res.render('List',{info:req.body.info,x:''});
 }else if(req.body.action=='create'){
   var d = new Date();
-res.render('create',{info:req.body.info,x:'',time:'',date:`${d.getYear()}-${d.getMonth()}-${d.getDate()}`,location:'',description:''});
+res.render('Creater',{info:req.body.info,x:'',time:'',date:`${d.getYear()}-${d.getMonth()}-${d.getDate()}`,location:'',description:''});
 }
 }
 })
 }else{
-  res.render('loginTest',{'x':''});
+  res.render('Login',{'x':''});
 }
 })
 })
@@ -149,7 +158,7 @@ app.post('/login',function(req,res){
     var user = req.body.username;
     var pw = req.body.password;
     if(!validateEmail(user)){
-      res.render('loginTest',{'x':'not email'});
+      res.render('Login',{'x':'not email'});
       return;
     }
     login.verification(user,pw,function(r){
@@ -158,10 +167,10 @@ app.post('/login',function(req,res){
         var key =  makeid(100);
         login.updatekey(user,key,function(){
         var jwtup = maketoken(user,key);
-        res.render('pivot',{'welcome':user, info: jwtup});
+        res.render('Direct',{'welcome':user, info: jwtup});
         });
       }else{
-        res.render('loginTest',{'x':'incorrect key'});
+        res.render('Login',{'x':'incorrect key'});
       }
 
     })

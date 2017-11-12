@@ -35,9 +35,58 @@
 </style>
 </head>
 <body>
-    <center><button type = "button"  class = "returntomain" value = "Return to Main Page" name = "name" onclick = "window.location.href = 'Main.html'"> Return to Main Menu</button></center>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+  $(document).ready(function(){
+  if(<%-JSON.stringify(x)%>!=''){
+    alert(<%- JSON.stringify(x)%>);
+  }
+  });
+  function load(){
+  var s = document.getElementById('sport').value;
+  var t = document.getElementById('time').value;
+  if (s=='Sports'||t=='time'){
+    return alert('need correct input of sport and time');
+  }
+  var xhttp, xmlDoc, txt, x, i;
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var rp = this.responseText;
+    rp = JSON.parse(rp);
+
+    if(rp.length==0){
+      document.getElementById('container')='no activity for joining';
+    }else{
+      var table = '<center><tr><td>number of people now</td><td>start time</td><td>date</td><td>sport</td></tr></center>';
+      for(var i = 0; i<rp.length ;i++){
+        table +=`<center><tr id='tr${i}'><td id='tdn${i}'>${rp[i].num}</td><td id='tdt${i}'>${rp[i].time}</td><td id='tdd${i}'>${rp[i].date}</td><td id='tds${i}'>${rp[i].sport}</td><td><input type='radio' name = 'stuff' value='${JSON.stringify(rp[i])}' checked></td></tr></center>`;
+      }
+      document.getElementById('table').innerHTML = table;
+      document.getElementById('ind').value = rp.length;
+    }
+    }
+  };
+  xhttp.open("get", '/join/'+s+'/'+t, true);
+  xhttp.send();
+}
+//$(document).ready(function(){
+/*  for(var i = 0; i<document.getElementById('ind').value;i++){
+
+  document.getElementById("tr"+i).onclick = function(){
+    console.log('in');
+    var date =document.getElementById("tdd"+i).value;
+    console.log(date);
+    var time =document.getElementById("tdt"+i).value;
+    var sport =document.getElementById("tds"+i).value;
+    alert(sport+time+date);
+    };
+//}
+}*/
+  </script>
+    <center><button type = "button"  class = "returntomain" value = "Return to Main Page" name = "name" onclick = "location.href = '/'"> Return to Main Menu</button></center>
     <center><h2 style = "font-family: Helvetica"><font color = black> View all the possible slots here. Choose the time and sports here. </font></h2></center>
-    <center><select>
+    <center><select id = 'sport'>
         <option value = "Sports"> Sports</option>
         <option value = "Soccer"> Soccer</option>
         <option value = "Basketball"> Basketball</option>
@@ -47,43 +96,35 @@
         <option value = "Swimming"> Swimming</option>
         <option value = "Tennis"> Tennis</option>
         <option value = "Badminton"> Badminton</option>
-        <option value = "Table Tennis"> Table Tennis</option>
     </select>
-    <select>
+    <select id = 'time' >
         <option value = "time"> time</option>
-        <option value = "8:00-10:00"> 8:00-10:00</option>
-        <option value = "10:00-12:00"> 10:00-12:00</option>
-        <option value = "12:00-14:00"> 12:00-14:00</option>
-        <option value = "14:00-16:00"> 14:00-16:00</option>
-        <option value = "16:00-18:00"> 16:00-18:00</option>
-        <option value = "18:00-10:00"> 18:00-20:00</option>
-        <option value = "20:00-22:00"> 20:00-22:00</option>
-        <option value = "22:00-24:00"> 22:00-24:00</option>
+        <option value = "8"> 8:00-10:00</option>
+        <option value = "10"> 10:00-12:00</option>
+        <option value = "12"> 12:00-14:00</option>
+        <option value = "14"> 14:00-16:00</option>
+        <option value = "16"> 16:00-18:00</option>
+        <option value = "18"> 18:00-20:00</option>
+        <option value = "20"> 20:00-22:00</option>
+        <option value = "22"> 22:00-24:00</option>
     </select></center>
+    <button onclick='load()'>check out time slot</button>
     <br></br>
-    <center><table style="width:100%">
-        <center><tr>
-            <th>UserName</th>
-            <th>Time</th>
-            <th>Sports</th>
-          </tr></center>
-          <center><tr>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-          </tr></center>
-          <center><tr>
-            <td>Eve</td>
-            <td>Jackson</td>
-            <td>94</td>
-          </tr></center>
-          <center><tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>80</td>
-          </tr></center>
-        </table>
-    <button type = "button" value = "Submit" name = "name" onclick = "window.location.href = 'List.html'"> Submit</button>
+    <form action="/join" method="post">
+      <input type="hidden" id='ind' value =0>
+        <input id="x"type ="hidden" name="info" value=<%- info%>>
+
+
+    <center>
+      <table style="width:100%" id="table">
+
+      </table>
+
+    <button type = "submit" value = "Submit" name = "name" > Submit</button>
+    </form>
 </center>
+<script>
+
+</script>
         </body>
 </html>

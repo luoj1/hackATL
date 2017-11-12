@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    background-color: #f7df88;
+}
+h1 {
+    color: white;
+    text-align: center;
+    font-family: Helvetica;
+    font-size: 16px;
+    padding-top: 40px;
+    padding-bottom: 50px;
+}
+h2{
+    font-family: Helvetica;
+}
+p {
+    color: white;
+    font-family: Helvetica;
+    font-size: 16px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+div{
+    color: white;
+    font-family: Helvetica;
+    font-size: 12px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50px;
+}
+button {
+    background-color: black;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    padding-top: 20px;
+}
+/* Add a hover effect for buttons */
+button:hover {
+    opacity: 0.8;
+}
+.returntomain{
+    background-color: black;
+    text-align: left;
+    width: auto;
+    padding: auto;
+    margin-top: 0px;
+    font-size: 11px;
+}
+.createjoin{
+    background-color: black;
+    width: auto;
+    padding: auto;
+    margin-top: 0px;
+    font-size: 11px;
+}
+</style>
+</head>
+<body>
+
+<h1></h1>
+
+<center><p1>
+    <button type="button" class="returntomain" name = "Return to Main Page" onclick= "location.href = '/'">Return to Main Page</button>
+</p1> <br> <br/>
+
+<br> <br/>
+  <form id="action" action="/todo" method='post'>
+<button type="button" class="createjoin" id = "create" >Create a New Game</button>
+<button type="button" class="createjoin" id = "join" >Join an Existing Game</button>
+<input type ="hidden" name = "info" value=<%- info%>>
+<input id="field" type ="hidden" name = "action" value="">
+</form>
+<script>
+document.getElementById("join").onclick = function(){
+  document.getElementById("field").value = "join";
+  document.getElementById("action").submit();
+};
+document.getElementById("create").onclick = function(){
+  document.getElementById("field").value = "create";
+  document.getElementById("action").submit();
+};
+</script>
+</body>
+</html>
